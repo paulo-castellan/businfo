@@ -8,14 +8,14 @@ import BusLineContext from "../../contexts/BusLineContext";
 import LocationForBusStopsContext from "../../contexts/LocationForBusStopsContext";
 
 export default function MapFeatures() {
-  const [busLineContext] = useContext(BusLineContext);
-  const [locationForBusStops] = useContext(LocationForBusStopsContext);
+  const { chosenBusLine } = useContext(BusLineContext);
+  const { locationForBusStops } = useContext(LocationForBusStopsContext);
   return (
     <>
       <Circle center={locationForBusStops} radius={1000} strokeWidth={1} />
       <Marker coordinate={locationForBusStops} icon={personMarker} />
       <BusStops />
-      {busLineContext !== "" && (
+      {chosenBusLine !== "" && (
         <>
           <BusPositions />
           <BusLineRoute />

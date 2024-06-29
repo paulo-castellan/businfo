@@ -6,8 +6,8 @@ import LocationForBusStopsContext from "../../contexts/LocationForBusStopsContex
 import MapFeatures from "../MapFeatures";
 
 export default function MapScreen() {
-  const [userLocation] = useContext(UserLocationContext);
-  const [, setLocationForBusStops] = useContext(LocationForBusStopsContext);
+  const { userLocation } = useContext(UserLocationContext);
+  const { setLocationForBusStops } = useContext(LocationForBusStopsContext);
 
   const handleChangeRegion = (params) => {
     setLocationForBusStops(params);

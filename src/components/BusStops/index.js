@@ -5,16 +5,16 @@ import LocationForBusStopsContext from "../../contexts/LocationForBusStopsContex
 
 export default function BusStops() {
   const [busStops, setBusStops] = useState([]);
-  const [locationForBusStopsState] = useContext(LocationForBusStopsContext);
+  const { locationForBusStops } = useContext(LocationForBusStopsContext);
 
   useEffect(() => {
     async function busStops() {
-      const response = await getSurroundingBusStops(locationForBusStopsState);
+      const response = await getSurroundingBusStops(locationForBusStops);
       setBusStops(response);
     }
     console.log("Requesting busStops....");
     busStops();
-  }, [locationForBusStopsState]);
+  }, [locationForBusStops]);
 
   if (!busStops.length) return;
 

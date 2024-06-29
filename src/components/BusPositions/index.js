@@ -5,13 +5,13 @@ import BusLineContext from "../../contexts/BusLineContext";
 import { useFocusEffect } from "@react-navigation/native";
 
 export default function BusPositions() {
-  const [busLineContext] = useContext(BusLineContext);
+  const { chosenBusLine } = useContext(BusLineContext);
   const [busesInfos, setBusesInfos] = useState([]);
 
   useFocusEffect(
     useCallback(() => {
       async function busesPositionHandler() {
-        const response = await getBusesLinePosition(busLineContext);
+        const response = await getBusesLinePosition(chosenBusLine);
         setBusesInfos(response);
       }
       let firstRequest = true;
@@ -27,7 +27,7 @@ export default function BusPositions() {
       }, 1000 * 5);
 
       return () => clearInterval(intervalId);
-    }, [busLineContext]),
+    }, [chosenBusLine]),
   );
 
   if (!busesInfos.length) return;

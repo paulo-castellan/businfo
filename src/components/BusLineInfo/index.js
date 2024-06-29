@@ -18,7 +18,7 @@ export default function BusLineInfo({
   extraInfos,
 }) {
   const navigation = useNavigation();
-  const [, setChoseBusLine] = useContext(BusLineContext);
+  const { setChosenBusLine } = useContext(BusLineContext);
   const [busLineExtraInfos, setBusLineExtraInfos] = useState("");
   const [bgColor, setBgColor] = useState({
     backgroundColor: "rgba(142,148,152, 0.5)",
@@ -67,7 +67,7 @@ export default function BusLineInfo({
   const busPrice = currencyFormater.format(price);
 
   const handleChosenBusLine = () => {
-    setChoseBusLine(number);
+    setChosenBusLine(number);
     return navigation.navigate("MapPage");
   };
 

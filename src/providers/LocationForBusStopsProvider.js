@@ -2,15 +2,15 @@ import { useState, useContext, useEffect } from "react";
 import LocationForBusStopsContext from "../contexts/LocationForBusStopsContext";
 import UserLocationContext from "../contexts/UserLocationContext";
 
-export default function BusLineProvider({ children }) {
-  const [userLocation] = useContext(UserLocationContext);
-  const [locationForBusStopsState, setLocationForBusStopsState] = useState({
+export default function LocationForBusStopsProvider({ children }) {
+  const { userLocation } = useContext(UserLocationContext);
+  const [locationForBusStops, setLocationForBusStops] = useState({
     latitude: userLocation.latitude,
     longitude: userLocation.longitude,
   });
 
   useEffect(() => {
-    setLocationForBusStopsState({
+    setLocationForBusStops({
       latitude: userLocation.latitude,
       longitude: userLocation.longitude,
     });
@@ -18,7 +18,7 @@ export default function BusLineProvider({ children }) {
 
   return (
     <LocationForBusStopsContext.Provider
-      value={[locationForBusStopsState, setLocationForBusStopsState]}
+      value={{ locationForBusStops, setLocationForBusStops }}
     >
       {children}
     </LocationForBusStopsContext.Provider>

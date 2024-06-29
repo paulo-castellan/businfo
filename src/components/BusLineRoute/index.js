@@ -2,34 +2,25 @@ import { useState, useEffect, useContext } from "react";
 import { getBusLineRoute } from "../../services/requests/busLines";
 import { Marker, Polyline } from "react-native-maps";
 import BusLineContext from "../../contexts/BusLineContext";
-// import { getBusLineStops } from "../../services/requests/busLines";
-// import BusStop from "../BusStop";
 import BusLineStartAndEnd from "../BusLineStartAndEnd";
 import arrow from "../../../assets/arrow16px.png";
 import { distance } from "@turf/distance";
 import { bearing } from "@turf/bearing";
 
 export default function BusLineRoute() {
-  const [busLineContext] = useContext(BusLineContext);
-
+  const { chosenBusLine } = useContext(BusLineContext);
   const [busRoute, setBusRoute] = useState([]);
-  // const [busRouteStops, setBusRouteStops] = useState([]);
   const [busLineDirection, setBusLineDirection] = useState("");
 
   useEffect(() => {
     async function Route() {
-      const busRouteInfos = await getBusLineRoute(busLineContext);
-      // const busStopsCoords = await getBusLineStops(
-      //   busRouteInfos.coordinatesWGS,
-      // );
-      // setBusRouteStops(busStopsCoords);
+      const busRouteInfos = await getBusLineRoute(chosenBusLine);
       setBusRoute(busRouteInfos.coordinatesWGS);
       setBusLineDirection(busRouteInfos.direction);
     }
     Route();
-  }, [busLineContext]);
+  }, [chosenBusLine]);
   if (!busRoute.length) return;
-  // if (!busRouteStops.length) return;
 
   function filteredArrowMakers(polyline) {
     let filteredPoints = [];
@@ -65,9 +56,6 @@ export default function BusLineRoute() {
         end={busRoute[busRoute.length - 1]}
         direction={busLineDirection}
       />
-      {/* {busRouteStops.map((stop) => {
-        return <BusStop {...stop} key={stop.properties.title} />;
-      })} */}
       {filteredArrowMakers(busRoute).map((marker) => {
         return (
           <Marker

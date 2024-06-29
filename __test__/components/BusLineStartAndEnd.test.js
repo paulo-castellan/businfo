@@ -23,7 +23,6 @@ describe("<BusLineStartAndEnd/>", () => {
       />,
     );
 
-    console.log(toJSON());
     expect(typeof toJSON() == "object").toBeTruthy();
   });
 });

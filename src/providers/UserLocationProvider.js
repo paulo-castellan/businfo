@@ -3,7 +3,7 @@ import UserLocationContext from "../contexts/UserLocationContext";
 import * as Location from "expo-location";
 
 export default function UserLocationProvider({ children }) {
-  const [userLocationState, setUserLocationState] = useState({
+  const [userLocation, setUserLocation] = useState({
     latitude: -15.793897840698195,
     longitude: -47.882576742173946,
   });
@@ -16,7 +16,7 @@ export default function UserLocationProvider({ children }) {
       }
 
       let localization = await Location.getCurrentPositionAsync({});
-      setUserLocationState({
+      setUserLocation({
         latitude: localization.coords.latitude,
         longitude: localization.coords.longitude,
         speed: localization.speed,
@@ -25,9 +25,7 @@ export default function UserLocationProvider({ children }) {
   }, []);
 
   return (
-    <UserLocationContext.Provider
-      value={[userLocationState, setUserLocationState]}
-    >
+    <UserLocationContext.Provider value={{ userLocation, setUserLocation }}>
       {children}
     </UserLocationContext.Provider>
   );
